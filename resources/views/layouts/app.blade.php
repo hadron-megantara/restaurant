@@ -18,7 +18,6 @@
     <link href="/css/jquery-ui.min.css" rel="stylesheet">
     <link href="/css/vendor.css" rel="stylesheet">
 
-    <script src="/js/jquery-1.12.4.min.js"></script>
     <script src="/js/app.js"></script>
     <script src="/js/jquery-ui.min.js"></script>
     <script src="/js/jquery.dataTables.min.js"></script>
@@ -37,6 +36,8 @@
     @yield('content')
     @include('includes.footer')
 
+    <script src="/js/jquery.min.js"></script>
     <script src="/js/vendor.js"></script>
+
 </body>
 </html>

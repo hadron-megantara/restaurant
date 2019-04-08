@@ -14,6 +14,7 @@
 Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('/dish', 'DishController@index')->name('dish');
+Route::get('/dish/list', 'DishController@list')->name('dish.list');
 
 Auth::routes();
 

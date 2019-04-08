@@ -14,4 +14,8 @@ class DishController extends Controller
     public function index(Request $request){
         return view("dish.dish");
     }
+
+    public function list(Request $request){
+
+    }
 }
