@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DataTables;
+use App\Dish;
+use App\Category;
 
 class DishController extends Controller
 {
@@ -13,33 +15,43 @@ class DishController extends Controller
     }
 
     public function index(Request $request){
-        return view("dish.dish");
+        $category = Category::all();
+
+        $data = array(
+            'category' => $category
+        );
+        return view("dish.list", $data);
     }
 
-    public function list(Request $request){
-        if(!$request->has('dateFrom') || $request->dateFrom == ''){
-            $dateFrom = '1990-01-01';
-        } else{
-            $dateFrom = $request->dateFrom;
-        }
+    public function getList(Request $request){
+        $dish = Dish::join('categories', 'dishes.category_id','=','categories.id')
+                ->select('dishes.id', 'dishes.name', 'categories.id as categoryId', 'categories.name as categoryName')->orderBy('dishes.updated_at')->get();
 
-        if(!$request->has('dateTo') || $request->dateTo == ''){
-            $dateTo = date('Y-m-d');
-        } else{
-            $dateTo = $request->dateTo;
-        }
+        return Datatables::of($dish)->make();
+    }
 
-        if($request->has('status')){
-            if($request->status != 2){
-                $status = $request->status;
-                $material = Material::join('material_transactions', 'material_transactions.id', '=', 'materials.transaction_id')->join('colors', 'materials.color_id', '=', 'colors.id')->selectRaw('materials.id, materials.material_type, materials.length, colors.name as color, colors.id as color_id, materials.price, materials.status, material_transactions.date_purchase')->orderBy('materials.updated_at', 'desc')->where('materials.status', $request->status)->whereBetween('material_transactions.date_purchase', [new Carbon($dateFrom), new Carbon($dateTo)])->get();
-            } else{
-                $material = Material::join('material_transactions', 'material_transactions.id', '=', 'materials.transaction_id')->join('colors', 'materials.color_id', '=', 'colors.id')->selectRaw('materials.id, materials.material_type, materials.length, materials.color, materials.price, materials.status, material_transactions.date_purchase, colors.name as color, colors.id as color_id')->orderBy('materials.updated_at', 'desc')->whereBetween('material_transactions.date_purchase', [new Carbon($dateFrom), new Carbon($dateTo)])->get();
-            }
-        } else{
-            $material = Material::join('material_transactions', 'material_transactions.id', '=', 'materials.transaction_id')->join('colors', 'materials.color_id', '=', 'colors.id')->selectRaw('materials.id, materials.material_type, materials.length, materials.color, materials.price, materials.status, material_transactions.date_purchase, colors.name as color, colors.id as color_id')->orderBy('materials.updated_at', 'desc')->whereBetween('material_transactions.date_purchase', [new Carbon($dateFrom), new Carbon($dateTo)])->get();
-        }
+    public function store(Request $request){
+        $dish = new Dish;
+        $dish->name = $request->dishName;
+        $dish->category_id = $request->dishCategoryId;
+        $dish->save();
 
-        return Datatables::of($material)->make();
+        return redirect('/dish')->with('success', 'Success adding new Dish');
+    }
+
+    public function update(Request $request){
+        $dish = Dish::find($request->dishId);
+        $dish->name = $request->dishName;
+        $dish->category_id = $request->dishCategoryId;
+        $dish->save();
+
+        return redirect('/dish')->with('success', 'Success update Dish');
+    }
+
+    public function destroy(Request $request){
+        $dish = Dish::find($request->dishId);
+        $dish->delete();
+
+        return redirect('/dish')->with('success', 'Success remove Dish');
     }
 }

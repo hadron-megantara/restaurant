@@ -14,7 +14,10 @@
 Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('/dish', 'DishController@index')->name('dish');
-Route::get('/dish/list', 'DishController@list')->name('dish.list');
+Route::post('/dish', 'DishController@store')->name('dish.add');
+Route::post('/dish/update', 'DishController@update')->name('dish.update');
+Route::post('/dish/delete', 'DishController@destroy')->name('dish.delete');
+Route::get('/dish/list', 'DishController@getList')->name('dish.list');
 
 Route::get('/category', 'CategoryController@index')->name('category');
 Route::post('/category', 'CategoryController@store')->name('category.add');
