@@ -14,15 +14,17 @@
     <link rel="shortcut icon" type="image/png" href="/img/icon/logo.png"/>
     <!-- Styles -->
     <link href="/css/font-awesome.min.css" rel="stylesheet" />
+    {{-- <link rel="stylesheet" type="text/css" media="all" href="/css/jquery.dataTables.min.css" /> --}}
     <link href="/css/app.css" rel="stylesheet">
     <link href="/css/jquery-ui.min.css" rel="stylesheet">
     <link href="/css/vendor.css" rel="stylesheet">
 
     <script src="/js/app.js"></script>
     <script src="/js/jquery-ui.min.js"></script>
-    <script src="/js/jquery.dataTables.min.js"></script>
+    {{-- <script src="/js/jquery.dataTables.min.js"></script> --}}
     <script src="/js/jquery.priceformat.min.js"></script>
     <script src="/js/spin.min.js"></script>
+    <script src="/js/jquery-1.12.4.min.js"></script>
 
     <!-- Scripts -->
     <script>
@@ -36,7 +38,6 @@
     @yield('content')
     @include('includes.footer')
 
-    <script src="/js/jquery.min.js"></script>
     <script src="/js/vendor.js"></script>
 
 </body>

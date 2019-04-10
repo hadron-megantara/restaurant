@@ -16,6 +16,18 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/dish', 'DishController@index')->name('dish');
 Route::get('/dish/list', 'DishController@list')->name('dish.list');
 
+Route::get('/category', 'CategoryController@index')->name('category');
+Route::post('/category', 'CategoryController@store')->name('category.add');
+Route::post('/category/update', 'CategoryController@update')->name('category.update');
+Route::post('/category/delete', 'CategoryController@destroy')->name('category.delete');
+Route::get('/category/list', 'CategoryController@getList')->name('category.list');
+
+Route::get('/employee', 'EmployeeController@index')->name('employee');
+Route::post('/employee', 'EmployeeController@store')->name('employee.add');
+Route::post('/employee/update', 'EmployeeController@update')->name('employee.update');
+Route::post('/employee/delete', 'EmployeeController@destroy')->name('employee.delete');
+Route::get('/employee/list', 'EmployeeController@getList')->name('employee.list');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

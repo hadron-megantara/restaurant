@@ -53,7 +53,7 @@
             serverSide: true,
             ajax: '{{ route('dish.list') }}',
             columns: [
-                { data: 'material_type', name: 'material_type' },
+                { data: 'name', name: 'name' },
 
                 { data: 'price', name: 'price', render: function(data, type, full) {
                         data = data.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.");
