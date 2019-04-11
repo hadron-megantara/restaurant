@@ -27,8 +27,8 @@ class TableController extends Controller
     }
 
     public function getList(Request $request){
-        $table = Table::join('areas', 'tables.area_id','=','areas.id')->join('floors', 'table.floor_id','=')
-                ->select('tablees.id', 'tables.name', 'categories.id as categoryId', 'categories.name as categoryName')->orderBy('tablees.updated_at')->get();
+        $table = Table::join('areas', 'tables.area_id','=','areas.id')->join('floors', 'tables.floor_id','=','floors.id')
+                ->select('tables.id', 'tables.name', 'areas.id as areaId', 'areas.name as areaName', 'floors.id as floorId', 'floors.name as floorName')->orderBy('tables.updated_at')->get();
 
         return Datatables::of($table)->make();
     }
@@ -36,7 +36,8 @@ class TableController extends Controller
     public function store(Request $request){
         $table = new Table;
         $table->name = $request->tableName;
-        $table->category_id = $request->tableCategoryId;
+        $table->area_id = $request->tableAreaId;
+        $table->floor_id = $request->tableFloorId;
         $table->save();
 
         return redirect('/table')->with('success', 'Success adding new Table');
@@ -45,7 +46,8 @@ class TableController extends Controller
     public function update(Request $request){
         $table = Table::find($request->tableId);
         $table->name = $request->tableName;
-        $table->category_id = $request->tableCategoryId;
+        $table->area_id = $request->tableAreaId;
+        $table->floor_id = $request->tableFloorId;
         $table->save();
 
         return redirect('/table')->with('success', 'Success update Table');

@@ -25,6 +25,12 @@ Route::post('/category/update', 'CategoryController@update')->name('category.upd
 Route::post('/category/delete', 'CategoryController@destroy')->name('category.delete');
 Route::get('/category/list', 'CategoryController@getList')->name('category.list');
 
+Route::get('/table', 'TableController@index')->name('table');
+Route::post('/table', 'TableController@store')->name('table.add');
+Route::post('/table/update', 'TableController@update')->name('table.update');
+Route::post('/table/delete', 'TableController@destroy')->name('table.delete');
+Route::get('/table/list', 'TableController@getList')->name('table.list');
+
 Route::get('/employee', 'EmployeeController@index')->name('employee');
 Route::post('/employee', 'EmployeeController@store')->name('employee.add');
 Route::post('/employee/update', 'EmployeeController@update')->name('employee.update');
